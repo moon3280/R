@@ -23,7 +23,7 @@ rforest_output <- randomForest(Hit ~ MFR_Revenue + Binary_LFR_Revenue + Binary_A
 print(importance(rforest_output,type = 2))
 
 # Decision Tree based on top ranked variables
-fit <- rpart(Hit ~ Binary_LFR_Revenue, method ='class', data=HitRate)
+fit <- rpart(Hit ~ MFR_Revenue + Binary_LFR_Revenue + Employees + Industry, method ='class', data=HitRate)
 rpart.plot(fit)
 
 
