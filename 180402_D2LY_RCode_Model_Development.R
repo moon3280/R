@@ -35,3 +35,5 @@ HitRate$MFR_Revenue_High <- ifelse(HitRate$MFR_Revenue >= 3000, 1, 0)
 #logistic regression model
 model <- glm (Hit ~ Binary_LFR_Revenue + MFR_Revenue_High, data = HitRate, family = binomial)
 summary(model)
+
+temp
