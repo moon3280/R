@@ -1,181 +1,92 @@
 hello world
 
-YEAR,MONTH,panicboom
-2011,1,1.80 
-2011,2,1.89 
-2011,3,1.85 
-2011,4,1.99 
-2011,5,2.18 
-2011,6,2.41 
-2011,7,2.29 
-2011,8,2.80 
-2011,9,2.88 
-2011,10,2.71 
-2011,11,2.93 
-2011,12,2.30 
-2012,1,2.09 
-2012,2,1.87 
-2012,3,1.99 
-2012,4,2.19 
-2012,5,2.43 
-2012,6,2.66 
-2012,7,2.71 
-2012,8,2.75 
-2012,9,2.44 
-2012,10,2.12 
-2012,11,2.08 
-2012,12,2.15 
-2013,1,1.95 
-2013,2,1.91 
-2013,3,1.99 
-2013,4,1.87 
-2013,5,1.97 
-2013,6,2.19 
-2013,7,2.11 
-2013,8,2.07 
-2013,9,1.85 
-2013,10,1.88 
-2013,11,1.69 
-2013,12,1.88 
-2014,1,2.06 
-2014,2,1.60 
-2014,3,1.50 
-2014,4,1.08 
-2014,5,1.17 
-2014,6,1.14 
-2014,7,1.18 
-2014,8,1.20 
-2014,9,1.41 
-2014,10,1.47 
-2014,11,1.33 
-2014,12,1.49 
-2015,1,1.95 
-2015,2,1.80 
-2015,3,2.13 
-2015,4,1.91 
-2015,5,2.04 
-2015,6,1.96 
-2015,7,2.08 
-2015,8,2.59 
-2015,9,2.48 
-2015,10,2.57 
-2015,11,2.61 
-2015,12,2.95 
-2016,1,3.21 
-2016,2,3.11 
-2016,3,2.86 
-2016,4,2.97 
-2016,5,3.01 
-2016,6,3.15 
-2016,7,3.01 
-2016,8,3.04 
-2016,9,3.06 
-2016,10,2.96 
-2016,11,2.77 
-2016,12,2.31 
-2017,1,2.44 
-2017,2,2.33 
-2017,3,2.28 
-2017,4,2.11 
-2017,5,1.91 
-2017,6,2.08 
-2017,7,2.19 
-2017,8,2.27 
-2017,9,1.96 
-2017,10,1.59 
-2017,11,1.53 
-2017,12,1.62 
-2018,1,1.91 
-2018,2,1.88 
-2018,3,1.98 
-2018,4,1.56 
-2018,5,1.78 
-2018,6,1.93 
-2018,7,1.82 
-2018,8,1.98 
-2018,9,1.80 
-2018,10,2.16 
-2018,11,2.61 
-2018,12,3.32 
-2019,1,3.03 
-2019,2,2.94 
-2019,3,2.92 
-2019,4,2.69 
-2019,5,2.70 
-2019,6,2.99 
-2019,7,2.83 
-2019,8,3.21 
-2019,9,3.03 
-2019,10,3.16 
-2019,11,3.21 
-2019,12,3.30 
-2020,1,3.45 
-2020,2,3.40 
-2020,3,4.68 
-2020,4,4.72 
-2020,5,3.90 
-2020,6,3.70 
-2020,7,3.09 
-2020,8,2.90 
-2020,9,2.92 
-2020,10,2.85 
-2020,11,2.77 
-2020,12,2.38 
-2021,1,1.90 
-2021,2,1.95 
-2021,3,1.54 
-2021,4,1.45 
-2021,5,1.23 
-2021,6,1.38 
-2021,7,1.39 
-2021,8,1.81 
-2021,9,2.02 
-2021,10,1.64 
-2021,11,1.57 
-2021,12,1.81 
-2022,1,2.16 
-2022,2,1.99 
-2022,3,2.05 
-2022,4,2.12 
-2022,5,2.81 
-2022,6,2.82 
-2022,7,2.47 
-2022,8,2.39 
-2022,9,2.48 
-2022,10,2.64 
-2022,11,2.87 
-2022,12,3.11 
-2023,1,2.37 
-2023,2,2.57 
-2023,3,3.04 
-2023,4,2.72 
-2023,5,2.92 
-2023,6,2.85 
-2023,7,2.80 
-2023,8,2.86 
-2023,9,2.72 
-2023,10,3.34 
-2023,11,3.08 
-2023,12,3.19 
-2024,1,3.09 
-2024,2,3.00 
-2024,3,2.90 
-2024,4,2.99 
-2024,5,2.82 
-2024,6,2.84 
-2024,7,2.94 
-2024,8,2.83 
-2024,9,2.99 
-2024,10,2.96 
-2024,11,2.69 
-2024,12,2.74 
-2025,1,2.95 
-2025,2,2.85 
-2025,3,3.05 
-2025,4,3.25 
-2025,5,3.23 
-2025,6,3.13 
-2025,7,3.22 
-2025,8,3.23 
-2025,9,3.26 
-2025,10,3.31 
+array(['AAPL', 'ADI', 'AMD', 'AMZN', 'GOOGL', 'HPQ', 'LENOVO', 'META',
+       'MRVL', 'MSFT', 'MU', 'NVDA', 'ORCL', 'QCOM', 'SKHYNIX', 'TSM',
+       'WDC'], dtype=object)
+
+X= pd.DataFrame()
+X['date'] = data['TDATE'][(data['TDATE']>=pd.to_datetime('2011-01-01')) & (data['TICKER'] == 'WDC')]
+for tick in np.unique(data['TICKER']):
+    temp = pd.DataFrame({'date':data['TDATE'][(data['TDATE']>=pd.to_datetime('2011-01-01')) & (data['TICKER'] == tick)],
+                         tick:data['PX_LAST'][(data['TDATE']>=pd.to_datetime('2011-01-01')) & (data['TICKER'] == tick)],
+                         #tick+'_CAP':data['CUR_MKT_CAP'][(data['TDATE']>=pd.to_datetime('2011-01-01')) & (data['TICKER'] == tick)]
+                        })
+    X = X.merge(temp,how='left',on='date')
+X['META'].fillna(method='bfill',inplace=True)
+df = pd.DataFrame()
+for tick in ['AAPL', 'ADI', 'AMD', 'AMZN', 'GOOGL', 'HPQ', 'LENOVO', 'META',
+       'MRVL', 'MSFT', 'MU', 'NVDA', 'ORCL', 'QCOM', 'SKHYNIX', 'TSM', 'WDC']:
+    df[tick+'_3'] = X[tick]/X[tick].shift(3) - 1
+    df[tick+'_rol6'] = X[tick]/X[tick].rolling(6).mean() - 1
+    df[tick+'_rol12'] = X[tick]/X[tick].rolling(12).mean() - 1
+df.index = X['date']
+for tick in df.columns:
+    df[tick+'_L1'] = df[tick].shift(1)
+    df[tick+'_L2'] = df[tick].shift(2)
+    df[tick+'_L3'] = df[tick].shift(3)
+    df[tick+'_L4'] = df[tick].shift(4)
+    df[tick+'_L5'] = df[tick].shift(5)
+    df[tick+'_L6'] = df[tick].shift(6)
+
+y = dd['y_TTL']/dd['y_TTL'].shift(3) -1 
+df['y'] = y.values
+df = df.dropna()
+y = df['y']
+df.drop('y',axis=1,inplace=True)
+
+from hyppo.independence import MGC
+l = []
+for i in range(df.shape[1]):
+    for j in range(i+1,df.shape[1]):
+        if np.corrcoef(df.iloc[:,i],df.iloc[:,j])[0,1] > 0.75:
+            temp=[]
+            result = MGC().test(x=df.iloc[:-3,i].values.reshape(-1,1), y=np.array(y.iloc[3:]).reshape(-1,1),reps=200)
+            temp.append(result.stat)
+            result = MGC().test(x=df.iloc[:-3,j].values.reshape(-1,1), y=np.array(y.iloc[3:]).reshape(-1,1),reps=200)
+            temp.append(result.stat)
+            if temp[0]>temp[1]:
+                print([df.columns[i],df.columns[j]])
+                l.append(df.columns[j])
+            else:
+                print([df.columns[j],df.columns[i]])
+                l.append(df.columns[i])
+
+from sklearn.ensemble import RandomForestRegressor
+m = RandomForestRegressor(n_estimators=500,max_depth=3,max_features='sqrt')
+df.drop(list(set(l)),axis=1,inplace=True)
+df.shape
+df_future = df.iloc[-3:]
+df = df.shift(3)
+df.dropna(inplace=True)
+y = y.iloc[3:]
+weights = {}
+for year in range(df.index[0].year+4,df.index[-1].year):
+    m.fit(df[(df.index > pd.to_datetime(str(year-4)+'-01-01')) & (df.index <= pd.to_datetime(str(year)+'-12-31'))],
+      y[(y.index > pd.to_datetime(str(year-4)+'-01-01')) & (y.index <= pd.to_datetime(str(year)+'-12-31'))])
+    weights[year] = m.feature_importances_
+temp = []
+for i in range(df.shape[0]):
+    if df.index[i].year <=list(weights.keys())[0] + 1:
+        temp.append(np.sum(df.iloc[i].values * weights[list(weights.keys())[0]]))
+    else:
+        temp.append(np.sum(df.iloc[i].values * weights[df.index[i].year - 1]))
+df['composite'] = temp    
+temp = []
+for i in range(df_future.shape[0]):
+    if df_future.index[i].year <=list(weights.keys())[0] + 1:
+        temp.append(np.sum(df_future.iloc[i].values * weights[list(weights.keys())[0]]))
+    else:
+        temp.append(np.sum(df_future.iloc[i].values * weights[max(list(weights.keys()))]))
+df_future['composite'] = temp  
+df.composite.plot()
+
+import effector
+pdp = effector.PDP(
+    df[(df.index > pd.to_datetime('2020-12-31')) & (df.index <= pd.to_datetime('2025-12-31'))].values,  # Use the test set as background data
+    m.predict,  # Prediction function
+    feature_names=df.columns,  # (optional) Feature names
+    #target_name=bike_sharing.target_name  # (optional) Target variable name
+)
+pdp.plot(
+    feature=34
+)
