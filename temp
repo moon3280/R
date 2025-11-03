@@ -1,92 +1,143 @@
 hello world
 
-array(['AAPL', 'ADI', 'AMD', 'AMZN', 'GOOGL', 'HPQ', 'LENOVO', 'META',
-       'MRVL', 'MSFT', 'MU', 'NVDA', 'ORCL', 'QCOM', 'SKHYNIX', 'TSM',
-       'WDC'], dtype=object)
-
-X= pd.DataFrame()
-X['date'] = data['TDATE'][(data['TDATE']>=pd.to_datetime('2011-01-01')) & (data['TICKER'] == 'WDC')]
-for tick in np.unique(data['TICKER']):
-    temp = pd.DataFrame({'date':data['TDATE'][(data['TDATE']>=pd.to_datetime('2011-01-01')) & (data['TICKER'] == tick)],
-                         tick:data['PX_LAST'][(data['TDATE']>=pd.to_datetime('2011-01-01')) & (data['TICKER'] == tick)],
-                         #tick+'_CAP':data['CUR_MKT_CAP'][(data['TDATE']>=pd.to_datetime('2011-01-01')) & (data['TICKER'] == tick)]
-                        })
-    X = X.merge(temp,how='left',on='date')
-X['META'].fillna(method='bfill',inplace=True)
-df = pd.DataFrame()
-for tick in ['AAPL', 'ADI', 'AMD', 'AMZN', 'GOOGL', 'HPQ', 'LENOVO', 'META',
-       'MRVL', 'MSFT', 'MU', 'NVDA', 'ORCL', 'QCOM', 'SKHYNIX', 'TSM', 'WDC']:
-    df[tick+'_3'] = X[tick]/X[tick].shift(3) - 1
-    df[tick+'_rol6'] = X[tick]/X[tick].rolling(6).mean() - 1
-    df[tick+'_rol12'] = X[tick]/X[tick].rolling(12).mean() - 1
-df.index = X['date']
-for tick in df.columns:
-    df[tick+'_L1'] = df[tick].shift(1)
-    df[tick+'_L2'] = df[tick].shift(2)
-    df[tick+'_L3'] = df[tick].shift(3)
-    df[tick+'_L4'] = df[tick].shift(4)
-    df[tick+'_L5'] = df[tick].shift(5)
-    df[tick+'_L6'] = df[tick].shift(6)
-
-y = dd['y_TTL']/dd['y_TTL'].shift(3) -1 
-df['y'] = y.values
-df = df.dropna()
-y = df['y']
-df.drop('y',axis=1,inplace=True)
-
-from hyppo.independence import MGC
-l = []
-for i in range(df.shape[1]):
-    for j in range(i+1,df.shape[1]):
-        if np.corrcoef(df.iloc[:,i],df.iloc[:,j])[0,1] > 0.75:
-            temp=[]
-            result = MGC().test(x=df.iloc[:-3,i].values.reshape(-1,1), y=np.array(y.iloc[3:]).reshape(-1,1),reps=200)
-            temp.append(result.stat)
-            result = MGC().test(x=df.iloc[:-3,j].values.reshape(-1,1), y=np.array(y.iloc[3:]).reshape(-1,1),reps=200)
-            temp.append(result.stat)
-            if temp[0]>temp[1]:
-                print([df.columns[i],df.columns[j]])
-                l.append(df.columns[j])
-            else:
-                print([df.columns[j],df.columns[i]])
-                l.append(df.columns[i])
-
-from sklearn.ensemble import RandomForestRegressor
-m = RandomForestRegressor(n_estimators=500,max_depth=3,max_features='sqrt')
-df.drop(list(set(l)),axis=1,inplace=True)
-df.shape
-df_future = df.iloc[-3:]
-df = df.shift(3)
-df.dropna(inplace=True)
-y = y.iloc[3:]
-weights = {}
-for year in range(df.index[0].year+4,df.index[-1].year):
-    m.fit(df[(df.index > pd.to_datetime(str(year-4)+'-01-01')) & (df.index <= pd.to_datetime(str(year)+'-12-31'))],
-      y[(y.index > pd.to_datetime(str(year-4)+'-01-01')) & (y.index <= pd.to_datetime(str(year)+'-12-31'))])
-    weights[year] = m.feature_importances_
-temp = []
-for i in range(df.shape[0]):
-    if df.index[i].year <=list(weights.keys())[0] + 1:
-        temp.append(np.sum(df.iloc[i].values * weights[list(weights.keys())[0]]))
-    else:
-        temp.append(np.sum(df.iloc[i].values * weights[df.index[i].year - 1]))
-df['composite'] = temp    
-temp = []
-for i in range(df_future.shape[0]):
-    if df_future.index[i].year <=list(weights.keys())[0] + 1:
-        temp.append(np.sum(df_future.iloc[i].values * weights[list(weights.keys())[0]]))
-    else:
-        temp.append(np.sum(df_future.iloc[i].values * weights[max(list(weights.keys()))]))
-df_future['composite'] = temp  
-df.composite.plot()
-
-import effector
-pdp = effector.PDP(
-    df[(df.index > pd.to_datetime('2020-12-31')) & (df.index <= pd.to_datetime('2025-12-31'))].values,  # Use the test set as background data
-    m.predict,  # Prediction function
-    feature_names=df.columns,  # (optional) Feature names
-    #target_name=bike_sharing.target_name  # (optional) Target variable name
-)
-pdp.plot(
-    feature=34
-)
+,DESCRIPTION,YEAR,MONTH,DAY,VALUE
+0,Thailand Manufacturing PMI SA,2022,11,30,51.1
+1,Thailand Manufacturing PMI SA,2022,12,31,52.5
+2,Thailand Manufacturing PMI SA,2023,1,31,54.5
+3,Thailand Manufacturing PMI SA,2023,2,28,54.8
+4,Thailand Manufacturing PMI SA,2023,3,31,53.1
+5,Thailand Manufacturing PMI SA,2023,4,30,60.4
+6,Thailand Manufacturing PMI SA,2023,5,31,58.2
+7,Thailand Manufacturing PMI SA,2023,6,30,53.2
+8,Thailand Manufacturing PMI SA,2023,7,31,50.7
+9,Thailand Manufacturing PMI SA,2023,8,31,48.9
+10,Thailand Manufacturing PMI SA,2023,9,30,47.8
+11,Thailand Manufacturing PMI SA,2023,10,31,47.5
+12,Thailand Manufacturing PMI SA,2023,11,30,47.6
+13,Thailand Manufacturing PMI SA,2023,12,31,45.1
+14,Thailand Manufacturing PMI SA,2024,1,31,46.7
+15,Thailand Manufacturing PMI SA,2024,2,29,45.3
+16,Thailand Manufacturing PMI SA,2024,3,31,49.1
+17,Thailand Manufacturing PMI SA,2024,4,30,48.6
+18,Thailand Manufacturing PMI SA,2024,5,31,50.3
+19,Thailand Manufacturing PMI SA,2024,6,30,51.7
+20,Thailand Manufacturing PMI SA,2024,7,31,52.8
+21,Thailand Manufacturing PMI SA,2024,8,31,52.0
+22,Thailand Manufacturing PMI SA,2024,9,30,50.4
+23,Thailand Manufacturing PMI SA,2024,10,31,50.0
+24,Thailand Manufacturing PMI SA,2024,11,30,50.2
+25,Thailand Manufacturing PMI SA,2024,12,31,51.4
+26,Thailand Manufacturing PMI SA,2025,1,31,49.6
+27,Thailand Manufacturing PMI SA,2025,2,28,50.6
+28,Thailand Manufacturing PMI SA,2025,3,31,49.9
+29,Thailand Manufacturing PMI SA,2025,4,30,49.5
+30,Thailand Manufacturing PMI SA,2025,5,31,51.2
+31,Thailand Manufacturing PMI SA,2025,6,30,51.7
+32,Thailand Manufacturing PMI SA,2025,7,31,51.9
+33,Thailand Manufacturing PMI SA,2025,8,31,52.7
+34,Thailand Manufacturing PMI SA,2025,9,30,54.6
+35,Philippines Manufacturing PMI SA,2022,11,30,52.7
+36,Philippines Manufacturing PMI SA,2022,12,31,53.1
+37,Philippines Manufacturing PMI SA,2023,1,31,53.5
+38,Philippines Manufacturing PMI SA,2023,2,28,52.7
+39,Philippines Manufacturing PMI SA,2023,3,31,52.5
+40,Philippines Manufacturing PMI SA,2023,4,30,51.4
+41,Philippines Manufacturing PMI SA,2023,5,31,52.2
+42,Philippines Manufacturing PMI SA,2023,6,30,50.9
+43,Philippines Manufacturing PMI SA,2023,7,31,51.9
+44,Philippines Manufacturing PMI SA,2023,8,31,49.7
+45,Philippines Manufacturing PMI SA,2023,9,30,50.6
+46,Philippines Manufacturing PMI SA,2023,10,31,52.4
+47,Philippines Manufacturing PMI SA,2023,11,30,52.7
+48,Philippines Manufacturing PMI SA,2023,12,31,51.5
+49,Philippines Manufacturing PMI SA,2024,1,31,50.9
+50,Philippines Manufacturing PMI SA,2024,2,29,51.0
+51,Philippines Manufacturing PMI SA,2024,3,31,50.9
+52,Philippines Manufacturing PMI SA,2024,4,30,52.2
+53,Philippines Manufacturing PMI SA,2024,5,31,51.9
+54,Philippines Manufacturing PMI SA,2024,6,30,51.3
+55,Philippines Manufacturing PMI SA,2024,7,31,51.2
+56,Philippines Manufacturing PMI SA,2024,8,31,51.2
+57,Philippines Manufacturing PMI SA,2024,9,30,53.7
+58,Philippines Manufacturing PMI SA,2024,10,31,52.9
+59,Philippines Manufacturing PMI SA,2024,11,30,53.8
+60,Philippines Manufacturing PMI SA,2024,12,31,54.3
+61,Philippines Manufacturing PMI SA,2025,1,31,52.3
+62,Philippines Manufacturing PMI SA,2025,2,28,51.0
+63,Philippines Manufacturing PMI SA,2025,3,31,49.4
+64,Philippines Manufacturing PMI SA,2025,4,30,53.0
+65,Philippines Manufacturing PMI SA,2025,5,31,50.1
+66,Philippines Manufacturing PMI SA,2025,6,30,50.7
+67,Philippines Manufacturing PMI SA,2025,7,31,50.9
+68,Philippines Manufacturing PMI SA,2025,8,31,50.8
+69,Philippines Manufacturing PMI SA,2025,9,30,49.9
+70,South Korea Manufacturing PMI SA,2022,11,30,49.0
+71,South Korea Manufacturing PMI SA,2022,12,31,48.2
+72,South Korea Manufacturing PMI SA,2023,1,31,48.5
+73,South Korea Manufacturing PMI SA,2023,2,28,48.5
+74,South Korea Manufacturing PMI SA,2023,3,31,47.6
+75,South Korea Manufacturing PMI SA,2023,4,30,48.1
+76,South Korea Manufacturing PMI SA,2023,5,31,48.4
+77,South Korea Manufacturing PMI SA,2023,6,30,47.8
+78,South Korea Manufacturing PMI SA,2023,7,31,49.4
+79,South Korea Manufacturing PMI SA,2023,8,31,48.9
+80,South Korea Manufacturing PMI SA,2023,9,30,49.9
+81,South Korea Manufacturing PMI SA,2023,10,31,49.8
+82,South Korea Manufacturing PMI SA,2023,11,30,50.0
+83,South Korea Manufacturing PMI SA,2023,12,31,49.9
+84,South Korea Manufacturing PMI SA,2024,1,31,51.2
+85,South Korea Manufacturing PMI SA,2024,2,29,50.7
+86,South Korea Manufacturing PMI SA,2024,3,31,49.8
+87,South Korea Manufacturing PMI SA,2024,4,30,49.4
+88,South Korea Manufacturing PMI SA,2024,5,31,51.6
+89,South Korea Manufacturing PMI SA,2024,6,30,52.0
+90,South Korea Manufacturing PMI SA,2024,7,31,51.4
+91,South Korea Manufacturing PMI SA,2024,8,31,51.9
+92,South Korea Manufacturing PMI SA,2024,9,30,48.3
+93,South Korea Manufacturing PMI SA,2024,10,31,48.3
+94,South Korea Manufacturing PMI SA,2024,11,30,50.6
+95,South Korea Manufacturing PMI SA,2024,12,31,49.0
+96,South Korea Manufacturing PMI SA,2025,1,31,50.3
+97,South Korea Manufacturing PMI SA,2025,2,28,49.9
+98,South Korea Manufacturing PMI SA,2025,3,31,49.1
+99,South Korea Manufacturing PMI SA,2025,4,30,47.5
+100,South Korea Manufacturing PMI SA,2025,5,31,47.7
+101,South Korea Manufacturing PMI SA,2025,6,30,48.7
+102,South Korea Manufacturing PMI SA,2025,7,31,48.0
+103,South Korea Manufacturing PMI SA,2025,8,31,48.3
+104,South Korea Manufacturing PMI SA,2025,9,30,50.7
+105,Vietnam Manufacturing PMI SA,2022,11,30,47.4
+106,Vietnam Manufacturing PMI SA,2022,12,31,46.4
+107,Vietnam Manufacturing PMI SA,2023,1,31,47.4
+108,Vietnam Manufacturing PMI SA,2023,2,28,51.2
+109,Vietnam Manufacturing PMI SA,2023,3,31,47.7
+110,Vietnam Manufacturing PMI SA,2023,4,30,46.7
+111,Vietnam Manufacturing PMI SA,2023,5,31,45.3
+112,Vietnam Manufacturing PMI SA,2023,6,30,46.2
+113,Vietnam Manufacturing PMI SA,2023,7,31,48.7
+114,Vietnam Manufacturing PMI SA,2023,8,31,50.5
+115,Vietnam Manufacturing PMI SA,2023,9,30,49.7
+116,Vietnam Manufacturing PMI SA,2023,10,31,49.6
+117,Vietnam Manufacturing PMI SA,2023,11,30,47.3
+118,Vietnam Manufacturing PMI SA,2023,12,31,48.9
+119,Vietnam Manufacturing PMI SA,2024,1,31,50.3
+120,Vietnam Manufacturing PMI SA,2024,2,29,50.4
+121,Vietnam Manufacturing PMI SA,2024,3,31,49.9
+122,Vietnam Manufacturing PMI SA,2024,4,30,50.3
+123,Vietnam Manufacturing PMI SA,2024,5,31,50.3
+124,Vietnam Manufacturing PMI SA,2024,6,30,54.7
+125,Vietnam Manufacturing PMI SA,2024,7,31,54.7
+126,Vietnam Manufacturing PMI SA,2024,8,31,52.4
+127,Vietnam Manufacturing PMI SA,2024,9,30,47.3
+128,Vietnam Manufacturing PMI SA,2024,10,31,51.2
+129,Vietnam Manufacturing PMI SA,2024,11,30,50.8
+130,Vietnam Manufacturing PMI SA,2024,12,31,49.8
+131,Vietnam Manufacturing PMI SA,2025,1,31,48.9
+132,Vietnam Manufacturing PMI SA,2025,2,28,49.2
+133,Vietnam Manufacturing PMI SA,2025,3,31,50.5
+134,Vietnam Manufacturing PMI SA,2025,4,30,45.6
+135,Vietnam Manufacturing PMI SA,2025,5,31,49.8
+136,Vietnam Manufacturing PMI SA,2025,6,30,48.9
+137,Vietnam Manufacturing PMI SA,2025,7,31,52.4
+138,Vietnam Manufacturing PMI SA,2025,8,31,50.4
+139,Vietnam Manufacturing PMI SA,2025,9,30,50.4
