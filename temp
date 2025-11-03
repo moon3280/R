@@ -1,5 +1,8 @@
 hello world
 
+spot_1,spot_3,contract_1,contract_3,nspot_1,nspot_3,ncontract_1,ncontract_3
+1.017718,1.522476,0.42623,0.657143,0.438017,0.68932,0,0.043478
+
 ,DESCRIPTION,YEAR,MONTH,DAY,VALUE
 0,Thailand Manufacturing PMI SA,2022,11,30,51.1
 1,Thailand Manufacturing PMI SA,2022,12,31,52.5
